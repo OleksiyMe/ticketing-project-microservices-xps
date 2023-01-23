@@ -42,7 +42,9 @@ info:
   application:
     name: ${spring.application.name}
     description: Ticketing Application
+#get variables from pom
     version: '@project.version@'
     spring-cloud-version: '@spring-cloud.version@'
     spring-boot-version: '@project.parent.version@'
+
 
