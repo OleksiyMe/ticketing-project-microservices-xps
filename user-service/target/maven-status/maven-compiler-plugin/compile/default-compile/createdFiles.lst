@@ -1,0 +1,9 @@
+com\cydeo\service\impl\RoleServiceImpl.class
+com\cydeo\UserServiceApplication.class
+com\cydeo\exception\UserServiceException.class
+com\cydeo\repository\UserRepository.class
+com\cydeo\service\RoleService.class
+com\cydeo\repository\RoleRepository.class
+com\cydeo\service\impl\UserServiceImpl.class
+com\cydeo\controller\UserController.class
+com\cydeo\service\UserService.class
