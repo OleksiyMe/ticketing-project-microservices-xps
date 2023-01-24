@@ -1,0 +1,6 @@
+com\cydeo\service\TaskService.class
+com\cydeo\controller\TaskController.class
+com\cydeo\exception\TaskServiceException.class
+com\cydeo\service\impl\TaskServiceImpl.class
+com\cydeo\respository\TaskRepository.class
+com\cydeo\TaskServiceApplication.class

@@ -1,0 +1,6 @@
+com\cydeo\repository\ProjectRepository.class
+com\cydeo\ProjectServiceApplication.class
+com\cydeo\exception\ProjectServiceException.class
+com\cydeo\controller\ProjectController.class
+com\cydeo\service\ProjectService.class
+com\cydeo\service\impl\ProjectServiceImpl.class
