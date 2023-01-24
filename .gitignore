@@ -1,2 +1,5 @@
 /.idea/
-/gateway-service/target/
+
+**/target
+/target
+
