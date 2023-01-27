@@ -29,7 +29,7 @@ services:
       database:
         condition: service_healthy
     ports:
-      - "9093:9090"
+      - "9093:9093"
     networks:
       - backend
   projectservice:
