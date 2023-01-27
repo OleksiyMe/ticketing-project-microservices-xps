@@ -12,8 +12,10 @@ import com.cydeo.repository.ProjectRepository;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserClientService;
 import com.cydeo.util.MapperUtil;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,14 +35,14 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDTO getByProjectCode(String code) {
         Project project = projectRepository.findByProjectCode(code);
-        return mapperUtil.convert(project,new ProjectDTO());
+        return mapperUtil.convert(project, new ProjectDTO());
     }
 
     @Override
     public List<ProjectDTO> listAllProjects() {
 
         List<Project> list = projectRepository.findAll();
-        return list.stream().map(obj -> mapperUtil.convert(obj,new ProjectDTO())).collect(Collectors.toList());
+        return list.stream().map(obj -> mapperUtil.convert(obj, new ProjectDTO())).collect(Collectors.toList());
 
     }
 
@@ -49,15 +51,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         Project foundProject = projectRepository.findByProjectCode(dto.getProjectCode());
 
-        if(foundProject != null){
+        if (foundProject != null) {
             throw new ProjectServiceException("Project with this code already existing");
         }
 
-        Project obj = mapperUtil.convert(dto,new Project());
+        Project obj = mapperUtil.convert(dto, new Project());
 
         Project createdProject = projectRepository.save(obj);
 
-        return mapperUtil.convert(createdProject,new ProjectDTO());
+        return mapperUtil.convert(createdProject, new ProjectDTO());
 
     }
 
@@ -66,15 +68,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         Project project = projectRepository.findByProjectCode(dto.getProjectCode());
 
-        if(project == null){
+        if (project == null) {
             throw new ProjectServiceException("Project does not exist");
         }
 
-        Project convertedProject = mapperUtil.convert(dto,new Project());
+        Project convertedProject = mapperUtil.convert(dto, new Project());
 
         Project updatedProject = projectRepository.save(convertedProject);
 
-        return mapperUtil.convert(updatedProject,new ProjectDTO());
+        return mapperUtil.convert(updatedProject, new ProjectDTO());
 
     }
 
@@ -98,23 +100,24 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findByProjectCode(projectCode);
         project.setProjectStatus(Status.COMPLETE);
 
-        Project completedProject= projectRepository.save(project);
+        Project completedProject = projectRepository.save(project);
 
-        return mapperUtil.convert(completedProject,new ProjectDTO());
+        return mapperUtil.convert(completedProject, new ProjectDTO());
 
 //        taskService.completeByProject(projectMapper.convertToDto(project));
     }
 
     @Override
+    @CircuitBreaker(name = "user-service", fallbackMethod = "userServiceFallBack")
     public List<ProjectDTO> listAllProjectDetails(String userName) throws ProjectServiceException {
 
         UserResponseDTO userResponseDto = userClientService.getUserDTOByUserName(userName);
         UserDTO user = userResponseDto.getData();
 
-        if(user != null){
+        if (user != null) {
             List<Project> list = projectRepository.findAllByAssignedManagerId(user.getId());
 
-            if(list.size() == 0 ){
+            if (list.size() == 0) {
                 throw new ProjectServiceException("This manager does not have any project assigned");
             }
 
@@ -132,10 +135,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
+    public List<ProjectDTO> userServiceFallBack(String userName, Exception e) {
+
+        return new ArrayList<>();
+    }
+
+
     @Override
     public List<ProjectDTO> readAllByAssignedManager(User user) {
         List<Project> list = projectRepository.findAllByAssignedManager(user);
-        return list.stream().map(obj ->mapperUtil.convert(obj,new ProjectDTO())).collect(Collectors.toList());
+        return list.stream().map(obj -> mapperUtil.convert(obj, new ProjectDTO())).collect(Collectors.toList());
     }
 
     @Override
@@ -143,7 +152,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projectRepository.findAllByProjectStatusIsNot(Status.COMPLETE)
                 .stream()
-                .map(project -> mapperUtil.convert(project,new ProjectDTO()))
+                .map(project -> mapperUtil.convert(project, new ProjectDTO()))
                 .collect(Collectors.toList());
     }
 
