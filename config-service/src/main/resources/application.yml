@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+#    active: native
+     active: git
+  cloud:
+    config:
+      server:
+#        native:
+#          search-locations: classpath:/config
+        git:
+          uri: https://github.com/OleksiyMe/ticketing-project-microservices-xps-config.git
+          default-label: main
+          username: OleksiyMe
+          password: '{cipher}c7dc6c804933c66f7e1b24b9438045d1c56fb6526127dd28da69bb964d4a6946f2674015b76e8f8b65ec3a817db3f445325faf335596b8733848d24bbfeba51d'
+#encrypt real key using postman localhost:8888/encrypt
+
+      fail-fast: true
+encrypt:
+  key: cydeo
+#key -- can be enything
+
+server:
+  port: 8888
+
