@@ -4,3 +4,9 @@
 /target
 /target/*
 
+/.mvn/
+/config-service.iml
+/gateway-service.iml
+/ticketing-project-microservices.iml
+/ticketing-project-microservices-xps.iml
+*.iml
