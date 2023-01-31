@@ -188,6 +188,7 @@
                 <version>${spring-cloud.version}</version>
             </dependency>
 
+
         </dependencies>
     </dependencyManagement>
 
