@@ -102,6 +102,12 @@
 
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webmvc-core</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>

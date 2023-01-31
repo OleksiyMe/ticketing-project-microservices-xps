@@ -54,6 +54,9 @@ management:
       exposure:
         include: "*"
   context-path: http://localhost:${server.port}/actuator
+  info:
+    env:
+      enabled: true
 
 
 info:
@@ -62,4 +65,4 @@ info:
     description: Ticketing Application
     version: '@project.version@'
     spring-cloud-version: '@spring-cloud.version@'
-    spring-boot-version: '@project.parent.version@'
+    spring-boot-version: '@spring-boot.version@'

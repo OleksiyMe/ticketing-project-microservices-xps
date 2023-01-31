@@ -38,6 +38,7 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <resilence4j.version>2.1.3</resilence4j.version>
         <micrometer-registry-prometheus.version>1.9.0</micrometer-registry-prometheus.version>
+        <open-api.version>1.6.9</open-api.version>
     </properties>
 
     <dependencyManagement>
@@ -177,17 +178,27 @@
                 <version>${spring-cloud.version}</version>
             </dependency>
 
-<!--            to get bootstrap.yml working for remote conf in springboot 2.7.5 and later -->
-<!--            else - different format. like-->
-<!--            Move all properties from boostrap.properties to application.properties (it can be .yml as well)-->
-<!--            Remove bootstrap.properties file-->
-<!--            Replace spring.cloud.config.uri=http://localhost:8888 with spring.config.import=configserver:http://localhost:8888-->
+            <!--            to get bootstrap.yml working for remote conf in springboot 2.7.5 and later -->
+            <!--            else - different format. like-->
+            <!--            Move all properties from boostrap.properties to application.properties (it can be .yml as well)-->
+            <!--            Remove bootstrap.properties file-->
+            <!--            Replace spring.cloud.config.uri=http://localhost:8888 with spring.config.import=configserver:http://localhost:8888-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-bootstrap</artifactId>
                 <version>${spring-cloud.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                <version>${open-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${open-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -212,7 +223,6 @@
             </plugins>
         </pluginManagement>
     </build>
-
 
 
 </project>
